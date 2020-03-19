@@ -161,10 +161,17 @@ class Video extends Component {
   }
 
   onSeekRelease(percent) {
+    const { disableForwardSeek } = this.props;
+    const isForwardSeek = percent > this.state.progress
     const seconds = percent * this.state.duration
-    this.setState({ progress: percent, seeking: false }, () => {
-      this.player.seek(seconds)
-    })
+
+    if (isForwardSeek && !disableForwardSeek || !isForwardSeek){
+      this.setState({ progress: percent, seeking: false }, () => {
+        this.player.seek(seconds)
+      })
+    } else {
+      this.setState({ seeking: false })
+    }
   }
 
   onError(msg) {
@@ -280,8 +287,15 @@ class Video extends Component {
   }
 
   seek(percent) {
+    const { disableForwardSeek } = this.props;
+    const isForwardSeek = percent > this.state.progress
     const currentTime = percent * this.state.duration
-    this.setState({ seeking: true, currentTime })
+
+    if (isForwardSeek && !disableForwardSeek || !isForwardSeek){
+      this.setState({ seeking: true, currentTime })
+    } else {
+      this.setState({ seeking: true })
+    }
   }
 
   seekTo(seconds) {
@@ -471,7 +485,8 @@ Video.propTypes = {
   logo: PropTypes.string,
   title: PropTypes.string,
   theme: PropTypes.object,
-  resizeMode: PropTypes.string
+  resizeMode: PropTypes.string,
+  disableForwardSeek: PropTypes.bool
 }
 
 Video.defaultProps = {
@@ -500,7 +515,8 @@ Video.defaultProps = {
   logo: undefined,
   title: '',
   theme: defaultTheme,
-  resizeMode: 'contain'
+  resizeMode: 'contain',
+  disableForwardSeek: false
 }
 
 export default Video
