@@ -11,7 +11,6 @@
     "react-native-orientation": "^3.1.0",
     "react-native-slider": "https://github.com/abbasfreestyle/react-native-slider.git",
     "react-native-vector-icons": "^4.4.2",
-    "react-native-video": "^5.0.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -20,6 +19,9 @@
     "babel-preset-react-native": "4.0.0",
     "jest": "21.2.1",
     "react-test-renderer": "16.0.0-beta.5"
+  },  
+  "peerDependencies": {
+    "react-native-video": "*"
   },
   "description": "A customisable React Native video player for Android and IOS",
   "homepage": "https://github.com/nextstep-engineering/react-native-af-video-player#readme",
